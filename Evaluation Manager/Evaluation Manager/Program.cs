@@ -17,7 +17,7 @@ namespace Evaluation_Manager
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmStudents());
+            Application.Run(new FrmLogin());
 
             DB.SetConfiguration("PI2023_my-base_DB", "student", "student");
         }
