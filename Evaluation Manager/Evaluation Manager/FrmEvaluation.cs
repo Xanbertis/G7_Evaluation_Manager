@@ -33,6 +33,16 @@ namespace Evaluation_Manager
             cboActivities.DataSource = ActivityRepository.GetActivities();
         }
 
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            //TODO - Save score to database
+        }
+
         private void cboActivities_SelectedIndexChanged(object sender, EventArgs e)
         {
             Activity selectedActivity = cboActivities.SelectedItem as Activity;
@@ -45,16 +55,19 @@ namespace Evaluation_Manager
             numPoints.Value = evaluation.Points;
             txtTeacher.Text = evaluation.Evaluator.ToString();
             txtEvaluationDate.Text = evaluation.EvaluationDate.ToString();
-        }
 
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            //TODO - Save score to database
+            if (evaluation != null)
+            {
+                txtTeacher.Text = evaluation.Evaluator.ToString();
+                txtEvaluationDate.Text = evaluation.EvaluationDate.ToString();
+                numPoints.Value = evaluation.Points;
+            }
+            else
+            {
+                txtTeacher.Text = FrmLogin.LoggedTeacher.ToString();
+                txtEvaluationDate.Text = "-";
+                numPoints.Value = 0;
+            }
         }
     }
 }
