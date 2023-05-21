@@ -11,9 +11,9 @@ namespace Evaluation_Manager.Models
         public string Username { get; set; }
         public string Password { get; set; }
 
-        internal bool CheckPassword(string password)
+        public bool CheckPassword(string password)
         {
-            return this.Password == password;
+            return Password == password;
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Evaluation_Manager.Models
 {
-    public abstract class Person : object
+    public abstract class Person
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
@@ -14,7 +14,7 @@ namespace Evaluation_Manager.Models
 
         public override string ToString()
         {
-            return FirstName + " " + LastName;
+            return $"{FirstName} {LastName}";
         }
     }
 }

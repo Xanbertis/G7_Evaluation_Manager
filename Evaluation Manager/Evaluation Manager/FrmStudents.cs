@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Evaluation_Manager.Models;
+using Evaluation_Manager.Repositories;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,8 +9,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Evaluation_Manager.Models;
-using Evaluation_Manager.Repositories;
 
 namespace Evaluation_Manager
 {

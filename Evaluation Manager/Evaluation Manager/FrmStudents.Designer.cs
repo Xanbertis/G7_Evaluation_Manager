@@ -1,5 +1,4 @@
-﻿
-namespace Evaluation_Manager
+﻿namespace Evaluation_Manager
 {
     partial class FrmStudents
     {
@@ -36,22 +35,24 @@ namespace Evaluation_Manager
             // 
             // dgvStudents
             // 
+            this.dgvStudents.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvStudents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvStudents.Location = new System.Drawing.Point(12, 12);
             this.dgvStudents.Name = "dgvStudents";
             this.dgvStudents.RowHeadersWidth = 51;
             this.dgvStudents.RowTemplate.Height = 24;
             this.dgvStudents.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvStudents.Size = new System.Drawing.Size(776, 378);
+            this.dgvStudents.Size = new System.Drawing.Size(776, 426);
             this.dgvStudents.TabIndex = 0;
             // 
             // btnEvaluateStudent
             // 
-            this.btnEvaluateStudent.Location = new System.Drawing.Point(614, 396);
+            this.btnEvaluateStudent.Location = new System.Drawing.Point(583, 451);
             this.btnEvaluateStudent.Name = "btnEvaluateStudent";
-            this.btnEvaluateStudent.Size = new System.Drawing.Size(174, 42);
+            this.btnEvaluateStudent.Size = new System.Drawing.Size(205, 34);
             this.btnEvaluateStudent.TabIndex = 1;
-            this.btnEvaluateStudent.Text = "Evaluate Student";
+            this.btnEvaluateStudent.Text = "Evaluate student";
             this.btnEvaluateStudent.UseVisualStyleBackColor = true;
             this.btnEvaluateStudent.Click += new System.EventHandler(this.btnEvaluateStudent_Click);
             // 
@@ -59,7 +60,7 @@ namespace Evaluation_Manager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 494);
             this.Controls.Add(this.btnEvaluateStudent);
             this.Controls.Add(this.dgvStudents);
             this.Name = "FrmStudents";

@@ -1,4 +1,5 @@
 ﻿using Evaluation_Manager.Models;
+using Evaluation_Manager.Repositories;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,7 +9,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Evaluation_Manager.Repositories;
 
 namespace Evaluation_Manager
 {
@@ -23,16 +23,6 @@ namespace Evaluation_Manager
             this.Text = $"{selectedStudent.FirstName} {selectedStudent.LastName}";
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-           //TODO : Save score to database
-        }
-
         private void FrmEvaluation_Load(object sender, EventArgs e)
         {
             PopulateActivities();
@@ -43,17 +33,28 @@ namespace Evaluation_Manager
             cboActivities.DataSource = ActivityRepository.GetActivities();
         }
 
+        private void cboActivities_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Activity selectedActivity = cboActivities.SelectedItem as Activity;
+            txtActivityDescription.Text = selectedActivity.Description;
+            txtMinForGrade.Text = selectedActivity.MinPointsForGrade.ToString();
+            txtMinForSignature.Text = selectedActivity.MinPointsForSignature.ToString();
+
+            Evaluation evaluation = EvaluationRepository.GetEvaluation(selectedStudent, selectedActivity);
+
+            numPoints.Value = evaluation.Points;
+            txtTeacher.Text = evaluation.Evaluator.ToString();
+            txtEvaluationDate.Text = evaluation.EvaluationDate.ToString();
+        }
+
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void cboActivities_SelectedIndexChanged(object sender, EventArgs e)
+        private void btnSave_Click(object sender, EventArgs e)
         {
-            Activity selectedActivity = cboActivities.SelectedItem as Activity;
-            txtActivityDescription.Text = selectedActivity.Description;
-            TxtMinForGrade.Text = selectedActivity.MinPointsForGrade.ToString();
-            txtMinForSignature.Text = selectedActivity.MinPointsForSignature.ToString();
+            //TODO - Save score to database
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ using Evaluation_Manager.Models;
 
 namespace Evaluation_Manager.Repositories
 {
-    class StudentRepository
+    public static class StudentRepository
     {
         public static Student GetStudent(int id)
         {
@@ -42,13 +43,12 @@ namespace Evaluation_Manager.Repositories
             return students;
         }
 
-        private static Student CreateObject(System.Data.SqlClient.SqlDataReader reader)
+        private static Student CreateObject(SqlDataReader reader)
         {
             int id = int.Parse(reader["Id"].ToString());
             string firstName = reader["FirstName"].ToString();
             string lastName = reader["LastName"].ToString();
             int.TryParse(reader["Grade"].ToString(), out int grade);
-
             var student = new Student
             {
                 Id = id,
@@ -56,7 +56,6 @@ namespace Evaluation_Manager.Repositories
                 LastName = lastName,
                 Grade = grade
             };
-
             return student;
         }
     }

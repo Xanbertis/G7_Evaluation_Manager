@@ -1,10 +1,11 @@
-﻿using System;
+﻿using DBLayer;
+using Evaluation_Manager.Models;
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DBLayer;
-using Evaluation_Manager.Models;
 
 namespace Evaluation_Manager.Repositories
 {
@@ -12,11 +13,12 @@ namespace Evaluation_Manager.Repositories
     {
         public static Teacher GetTeacher(int id)
         {
-            return FetchTeacher($"SELECT * FROM Teacher WHERE Id = {id}");
+            return FetchTeacher($"SELECT * FROM Teachers WHERE Id = {id}");
         }
+
         public static Teacher GetTeacher(string username)
         {
-            return FetchTeacher($"SELECT * FROM Teacher WHERE Username = '{username}'");
+            return FetchTeacher($"SELECT * FROM Teachers WHERE Username = '{username}'");
         }
 
         private static Teacher FetchTeacher(string sql)
@@ -34,35 +36,21 @@ namespace Evaluation_Manager.Repositories
             return teacher;
         }
 
-        public static List<Teacher> GetTeachers()
-        {
-            List<Teacher> teachers = new List<Teacher>();
-            string sql = "SELECT * FROM Teacher";
-            DB.OpenConnection();
-            var reader = DB.GetDataReader(sql);
-            while (reader.Read())
-            {
-                Teacher teacher = CreateObject(reader);
-                teachers.Add(teacher);
-            }
-            reader.Close();
-            DB.CloseConnection();
-            return teachers;
-        }
-
-        private static Teacher CreateObject(System.Data.SqlClient.SqlDataReader reader)
+        private static Teacher CreateObject(SqlDataReader reader)
         {
             int id = int.Parse(reader["Id"].ToString());
             string firstName = reader["FirstName"].ToString();
             string lastName = reader["LastName"].ToString();
-            int.TryParse(reader["Grade"].ToString(), out int grade);
+            string username = reader["Username"].ToString();
+            string password = reader["Password"].ToString();
 
             var teacher = new Teacher
             {
                 Id = id,
                 FirstName = firstName,
                 LastName = lastName,
-                //rade = grade
+                Username = username,
+                Password = password
             };
 
             return teacher;

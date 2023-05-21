@@ -1,14 +1,15 @@
-﻿using System;
+﻿using DBLayer;
+using Evaluation_Manager.Models;
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DBLayer;
-using Evaluation_Manager.Models;
 
 namespace Evaluation_Manager.Repositories
 {
-    class EvaluationRepository
+    public class EvaluationRepository
     {
         public static Evaluation GetEvaluation(Student student, Activity activity)
         {
@@ -26,50 +27,17 @@ namespace Evaluation_Manager.Repositories
             return evaluation;
         }
 
-        public static List<Evaluation> GetEvaluations(Student student)
+        private static Evaluation CreateObject(SqlDataReader reader)
         {
-            List<Evaluation> evaluations = new List<Evaluation>();
 
-            string sql = $"SELECT * FROM Evaluations WHERE IdStudents = {student.Id}";
-            DB.OpenConnection();
-            var reader = DB.GetDataReader(sql);
-
-            while (reader.Read())
+            return new Evaluation
             {
-                Evaluation evaluation = CreateObject(reader);
-                evaluations.Add(evaluation);
-            }
-
-            reader.Close();
-            DB.CloseConnection();
-
-            return evaluations;
-        }
-
-        private static Evaluation CreateObject(System.Data.SqlClient.SqlDataReader reader)
-        {
-            int idActivities = int.Parse(reader["IdActivities"].ToString());
-            var activity = ActivityRepository.GetActivity(idActivities);
-
-            int idStudents = int.Parse(reader["IdStudents"].ToString());
-            var student = StudentRepository.GetStudent(idStudents);
-
-            int idTeachers = int.Parse(reader["IdTeachers"].ToString());
-            var teacher = TeacherRepository.GetTeacher(idTeachers);
-
-            DateTime evaluationDate = DateTime.Parse(reader["EvaluationDate"].ToString());
-            int points = int.Parse(reader["Points"].ToString());
-
-            var evaluation = new Evaluation
-            {
-                Activity = activity,
-                Student = student,
-                Evaluator = teacher,
-                EvaluationDate = evaluationDate,
-                Points = points
+                Activity = ActivityRepository.GetActivity(int.Parse(reader["IdActivities"].ToString())),
+                Student = StudentRepository.GetStudent(int.Parse(reader["IdStudents"].ToString())),
+                Evaluator = TeacherRepository.GetTeacher(int.Parse(reader["Idteachers"].ToString())),
+                EvaluationDate = DateTime.Parse(reader["EvaluationDate"].ToString()),
+                Points = int.Parse(reader["Points"].ToString())
             };
-
-            return evaluation;
         }
     }
 }
