@@ -40,7 +40,11 @@ namespace Evaluation_Manager
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            //TODO - Save score to database
+            var activity = cboActivities.SelectedItem as Activity;
+            var teacher = FrmLogin.LoggedTeacher;
+            int points = (int)numPoints.Value; teacher.PerformEvaluation(selectedStudent, activity, points);
+            Close();
+
         }
 
         private void cboActivities_SelectedIndexChanged(object sender, EventArgs e)
